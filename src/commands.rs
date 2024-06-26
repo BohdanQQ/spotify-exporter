@@ -120,7 +120,7 @@ impl ToOutputType for ConvertedExportData {
 
 impl Command for TopTracksCommand {
     fn execute(&mut self, spotify: &AuthCodeSpotify) -> Result<(), ClientError> {
-        let stream = spotify.current_user_top_tracks(Some(&self.time));
+        let stream = spotify.current_user_top_tracks(Some(self.time));
         for item in stream {
             match item {
                 Ok(track) => {
@@ -167,7 +167,7 @@ impl Command for TopTracksCommand {
             OutputType::JSON => format!("[{}]", join_vec(data_strings, ",\n")),
         };
 
-        match writer.write(to_write.as_bytes()) {
+        match writer.write_all(to_write.as_bytes()) {
             Ok(_) => Ok(()),
             Err(e) => Err(e.to_string()),
         }

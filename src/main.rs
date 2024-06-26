@@ -75,7 +75,7 @@ async fn main() {
     );
     let oauth = OAuth::from_env(scopes).unwrap();
 
-    let mut spotify = AuthCodeSpotify::new(creds, oauth);
+    let spotify = AuthCodeSpotify::new(creds, oauth);
 
     let url = spotify.get_authorize_url(false).unwrap();
     spotify.prompt_for_token(&url).unwrap();
